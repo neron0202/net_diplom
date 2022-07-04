@@ -28,3 +28,13 @@ def new_order_signal(user_id, **kwargs):
                                  settings.EMAIL_HOST_USER, [user.email])
     msg.send()
 
+
+@django.dispatch.receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, **kwargs):
+    msg = EmailMultiAlternatives(
+        f"password reset token for {reset_password_token.user}",
+        reset_password_token.key,
+        settings.EMAIL_HOST_USER,
+        [reset_password_token.user.email]
+    )
+    msg.send()

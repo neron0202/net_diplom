@@ -86,7 +86,7 @@ class ConfirmEmailToken(models.Model):
     def generate_key():
         return get_token_generator().generate_token()
 
-    user = models.ForeigKey(User, related_name='confirm_email_tokens', on_delete=models.CASCADE,
+    user = models.ForeignKey(User, related_name='confirm_email_tokens', on_delete=models.CASCADE,
                             verbose_name=('The user which is associated to this password reset token'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Time when the token was generated')
     key = models.CharField('Key', max_length=64, db_index=True, unique=True)
